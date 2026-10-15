@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Timesheet Decimal Calculator — Paper Layout</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#1b2732;background:#edf2f8}*{box-sizing:border-box}body{margin:0}.toolbar{max-width:1450px;margin:18px auto 12px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.brand{font-size:20px;font-weight:800;color:#16477a}.hint{color:#536479;font-size:12px;margin-top:5px}.actions{display:flex;gap:8px;flex-wrap:wrap}button{font:inherit;border:1px solid #b4c5d7;border-radius:7px;background:white;color:#174777;padding:10px 13px;font-weight:700;cursor:pointer}button:hover{background:#eaf3ff}button.primary{background:#165a9c;color:white;border-color:#165a9c}button.danger{color:#a22d30}.paper{max-width:1450px;margin:0 auto 30px;background:white;box-shadow:0 6px 25px #1b3a571e;padding:14px}.header{display:grid;grid-template-columns:155px 1fr 335px;gap:8px;align-items:center;border:1px solid #748496;padding:8px}.seal{border:3px double #324a63;border-radius:100%;width:100px;height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:12px;margin:auto}.seal span{font-size:25px}.heading{text-align:center}.heading h1{font-size:23px;margin:0 0 5px}.heading h2{font-size:17px;margin:10px 0 0}.heading p{margin:0;font-size:15px}.instruction{font-size:12px;border-left:1px solid #9aa5b0;padding-left:12px;line-height:1.45}.meta{display:grid;grid-template-columns:270px minmax(200px,1fr) 175px 225px;border:1px solid #748496;border-top:0}.meta>div{padding:10px;border-right:1px solid #9aa5b0}.meta>div:last-child{border-right:0}.label{font-weight:700;font-size:12px;margin-bottom:6px;display:block}.meta input:not([type=checkbox]):not([type=radio]),.meta select{width:100%;height:35px;border:1px solid #acb9c8;border-radius:4px;padding:7px;font-size:13px}.checks label{display:block;font-size:13px;margin:3px 0}.checks input{accent-color:#165a9c}.tablewrap{overflow-x:auto}.sheet{width:100%;border-collapse:collapse;min-width:1000px;table-layout:fixed;font-size:12px}.sheet th,.sheet td{border:1px solid #82909f;padding:5px;text-align:center}.sheet th{background:#e9eef4;height:47px}.sheet tr td{height:45px}.sheet input{width:100%;min-width:0;border:1px solid #c3d0db;background:#fff;border-radius:4px;padding:7px 4px;font:inherit}.sheet input:focus,.meta input:focus{outline:2px solid #76a5e0;outline-offset:0}.sheet .hours{font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;color:#153e69}.sheet tr.invalid{background:#fff2f0}.sheet tr.invalid .hours{color:#b21b25;font-size:12px}.sheet tfoot td{background:#eaf2fc;font-weight:800;font-size:17px;text-align:right}.sheet tfoot td.total{font-size:22px;text-align:center;color:#0a4c89}.remove{padding:6px 7px;border:0;background:transparent;color:#ac3f43;font-size:18px}.helper{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:14px 2px}.notice{font-size:13px;line-height:1.5;color:#44576b}.notice strong{color:#153e69}.conversion{background:#f2f6fa;padding:12px 14px;border:1px solid #c9d3dc;border-radius:7px;font-size:12px}.conversion select{margin:0 6px;padding:5px}.conversion output{font-size:18px;font-weight:800;color:#164a84}.status{padding:7px 10px;color:#35643d;font-size:12px}.signatures{margin-top:28px;display:grid;grid-template-columns:2fr 1.5fr 1fr;gap:28px}.signatures div{border-top:1px solid #8e9ba9;padding-top:6px;font-size:12px;color:#4e5a67}.footer{font-size:11px;text-align:center;margin:18px 0 4px;color:#536479}.small{font-size:11px;color:#526377}.screenonly{}@media(max-width:900px){.header{grid-template-columns:90px 1fr}.seal{width:75px;height:75px;font-size:9px}.seal span{font-size:18px}.instruction{grid-column:1/-1;border-left:0;border-top:1px solid #9aa5b0;padding:8px 0 0}.meta{grid-template-columns:1fr 1fr}.meta>div:nth-child(2){border-right:0}.meta>div:nth-child(-n+2){border-bottom:1px solid #9aa5b0}.paper{margin:0 9px 25px;padding:8px}.heading h1{font-size:17px}.heading h2{font-size:13px}.heading p{font-size:12px}}@media print{@page{size:landscape;margin:0.35in}body{background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}.screenonly,.remove,.actioncol{display:none!important}.paper{max-width:none;margin:0;box-shadow:none;padding:0}.sheet{min-width:0;font-size:10px}.sheet th,.sheet td{padding:3px}.sheet tr td{height:34px}.sheet input,.meta input,.meta select{border:0;background:transparent;padding:0;appearance:none;color:#000}.sheet input[type=time]{font-size:10px}.sheet .hours{font-size:13px}.sheet tfoot td.total{font-size:16px}.header{grid-template-columns:110px 1fr 250px}.heading h1{font-size:18px}.heading h2{font-size:15px}.seal{width:85px;height:85px}.meta{grid-template-columns:230px 1fr 155px 200px}.footer{margin-top:12px}.signatures{margin-top:22px}}
+
+/* Version 2: paper-first styling based on initial preview */
+.meta .checks input[type=radio]{width:15px;height:15px;vertical-align:middle;margin:0 8px 0 0;accent-color:#205eab}.checks label{display:flex;align-items:center;gap:2px;margin:9px 0;font-size:13px}
+:root{background:#e7eaee;color:#101820}
+body{padding:12px;background:linear-gradient(135deg,#dadfe5,#f3f4f7)}
+.paper{max-width:1520px;padding:12px;margin:0 auto 25px;border-radius:9px;border:1px solid #aeb9c6;box-shadow:0 6px 23px #263b4a22;background:linear-gradient(#f8f9fa,#f1f3f6)}
+.header{border:1px solid #aab4be;grid-template-columns:185px 1fr 300px;min-height:138px;background:#f5f7f9}
+.seal{border:3px double #253442;width:115px;height:115px;color:#1c2c3b;background:#fff;font-size:11px;transform:rotate(-4deg)}
+.seal span{font-size:25px;letter-spacing:-1px}
+.heading h1{font-size:24px;color:#111;margin:0 0 5px}.heading h2{font-size:19px;margin:19px 0 0}.heading p{font-size:17px}
+.instruction{background:#f1f4f7;border:1px solid #b4bfc9;padding:10px 12px;font-size:12px;color:#202a33}
+.meta{grid-template-columns:24% 36% 17% 23%;background:#f6f8fa}.meta>div{padding:10px 14px}.meta .label{font-size:13px}.meta input:not([type=checkbox]):not([type=radio]),.meta select{height:39px;font-size:14px}.meta>div:last-child{background:#e4eef9}
+.tablewrap{background:#fbfcfe}.sheet{font-size:13px;min-width:1150px}.sheet th{background:linear-gradient(#e9f0f7,#dce7f1);color:#1b2835;font-size:13px;height:48px;border-color:#8494a5}.sheet td{background:#fafbfd;border-color:#a1afbc;padding:4px}.sheet tr:nth-child(even) td{background:#f1f5f9}.sheet tr td{height:43px}.sheet input{font-size:13px;height:34px;border-radius:5px;border:1px solid #d1d9e1;background:#fff;padding:5px 6px}.sheet input[type=time]{font-size:13px}.sheet .hours{font-size:19px;color:#142c45}.sheet tfoot td{background:#e6eff9!important}.sheet tfoot td.total{font-size:24px;color:#153e69}.sheet tr.invalid td{background:#fff0ec!important}
+.helper{padding:14px 10px 0;align-items:stretch;gap:12px}.actionbuttons{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.actionbuttons button{min-height:45px}.helper .conversion{flex:1;max-width:480px;background:#eff3f8;border:1px solid #bfcbd7;font-size:13px}.conversion select{width:60%;max-width:260px;border:1px solid #bbc7d2;border-radius:5px;height:34px;background:#fff}.conversion output{font-size:17px}
+button{border-radius:5px;transition:background .12s}button.primary{background:#205eab;border-color:#205eab}.actionbuttons #csv{background:#268443;border-color:#268443;color:#fff}.actionbuttons #add{background:#fff;border:2px solid #205eab;color:#205eab}.actionbuttons #clear{background:#e9edf2;color:#283746}.actionbuttons #sample{background:#eef2f6;color:#25445e}.actionbuttons #print{background:#205eab;color:white}
+.notice{margin-top:8px;padding:0 10px}.footer{color:#647180}.toolbar{display:none}.signatures{margin-top:25px;padding:0 10px}
+@media(max-width:1000px){.header{grid-template-columns:110px 1fr}.instruction{grid-column:1/-1}.meta{grid-template-columns:1fr 1fr}.meta>div{border-bottom:1px solid #ccd5dd}.meta>div:nth-child(2){border-right:0}.meta>div:nth-child(3){border-bottom:0}.meta>div:nth-child(4){border-bottom:0}.paper{padding:8px}.seal{width:82px;height:82px;font-size:9px}.seal span{font-size:17px}.heading h1{font-size:18px}.heading h2{font-size:14px}.heading p{font-size:13px}}
+@media(max-width:650px){body{padding:6px}.paper{margin:0 auto}.meta{grid-template-columns:1fr}.meta>div{border-right:0!important;border-bottom:1px solid #c8d4df!important}.meta>div:last-child{border-bottom:0!important}.heading h1{font-size:15px}.heading h2{font-size:12px;margin-top:10px}.instruction{font-size:11px}.actionbuttons{width:100%}.actionbuttons button{flex:1 1 43%}.helper .conversion{max-width:none;width:100%}.helper{flex-direction:column}.signatures{gap:9px}}
+@media print{body{padding:0;background:white}.toolbar,.helper,.notice,.status,.screenonly{display:none!important}.paper{margin:0;border:0;box-shadow:none;background:white}.header,.meta{background:#fff}.sheet{min-width:0}.sheet td,.sheet tr:nth-child(even) td{background:white}.sheet input{background:transparent}.sheet th{background:#e9eef4}.seal{transform:none}.signatures{padding:0}}
+
+.bulk-tools{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 4px;padding:12px;border:1px solid #888;background:white}
+.bulk-item{display:flex;align-items:center;gap:9px;flex-wrap:wrap;flex:1 1 390px;font-size:12px}.bulk-item select,.bulk-item input{flex:1 1 170px;min-width:150px;padding:9px 8px;border:1px solid #999;background:white;color:#111;border-radius:2px}.bulk-item button{font-size:12px;padding:9px 10px;color:#111;border:1px solid #777;background:#f2f2f2}.bulk-item input[hidden]{display:none}
+@media print{.bulk-tools{display:none!important}}
+/* Version 3 — faithful monochrome paper timesheet */
+:root{color:#111;background:#eee;font-family:Arial,Helvetica,sans-serif}
+body{background:#e8e8e8;padding:20px 10px}
+.paper{max-width:1460px;background:#fff;border:1px solid #666;border-radius:0;box-shadow:0 2px 11px #0002;padding:20px;margin:0 auto 26px}
+.header{grid-template-columns:108px 1fr 335px;border:1px solid #222;background:#fff;min-height:120px;gap:0;padding:0}
+.seal{border:2px solid #111;width:90px;height:90px;transform:none;background:#fff;color:#111;font-size:10px;letter-spacing:0}
+.seal span{font-size:18px}
+.heading h1{color:#111;font-size:20px}.heading h2{font-size:17px;margin-top:13px}.heading p{font-size:14px}
+.instruction{height:100%;background:#fff;color:#111;border:0;border-left:1px solid #222;font-size:11px;padding:9px 11px;line-height:1.4}
+.meta{grid-template-columns:26% 37% 15% 22%;background:#fff;border-color:#222}
+.meta>div{border-color:#222;padding:8px 10px}
+.meta>div:last-child{background:#fff}
+.meta .label{color:#111;font-size:12px}
+.meta input:not([type=checkbox]):not([type=radio]),.meta select{border:1px solid #aaa;border-radius:0;height:31px;background:#fff;color:#111;font-size:12px}
+.meta .checks label{font-size:12px;margin:5px 0}
+.meta .checks input[type=radio]{accent-color:#222}
+.sheet{min-width:1120px;font-size:12px;color:#111}
+.sheet th{background:#fff!important;color:#111;border:1px solid #222;font-size:12px;height:45px}
+.sheet td,.sheet tr:nth-child(even) td{background:#fff!important;border:1px solid #444;padding:3px}
+.sheet tr td{height:38px}
+.sheet input{background:#fff;border:1px solid #e2e2e2;border-radius:0;height:29px;padding:4px;color:#111;font-size:12px}
+.sheet input:focus,.meta input:focus{outline:2px solid #111;outline-offset:0}
+.sheet .hours{color:#111;font-size:15px;font-weight:700}
+.sheet tfoot td,.sheet tfoot td.total{background:#fff!important;color:#111;font-size:15px}
+.sheet tfoot td.total{font-size:19px}
+.helper{padding:15px 0 0}.helper .conversion{background:#fff;border:1px solid #777;border-radius:0;max-width:425px;color:#111}.conversion select{border:1px solid #777;border-radius:0}.conversion output{color:#111}
+button,button.primary,.actionbuttons #add,.actionbuttons #csv,.actionbuttons #print,.actionbuttons #sample,.actionbuttons #clear{background:#fff;color:#111;border:1px solid #555;border-radius:2px;font-size:12px;font-weight:700;min-height:40px}
+button:hover,.actionbuttons button:hover{background:#eaeaea}
+.notice{color:#333}.notice strong{color:#111}.status{color:#333}.signatures div{color:#111;border-color:#333}.footer{color:#555}
+@media(max-width:1000px){.header{grid-template-columns:95px 1fr}.instruction{border-top:1px solid #222;border-left:0;grid-column:1/-1}.meta{grid-template-columns:1fr 1fr}.seal{width:78px;height:78px}.heading h1{font-size:17px}}
+@media(max-width:650px){body{padding:6px}.paper{padding:8px}.meta{grid-template-columns:1fr}.helper{flex-direction:column}.helper .conversion{max-width:none}}
+@media print{
+@page{size:landscape;margin:0.3in}
+html,body{background:white!important;padding:0!important}
+.paper{max-width:none;border:0;box-shadow:none;padding:0;margin:0}
+.header{grid-template-columns:100px 1fr 300px;min-height:96px}
+.instruction{border-left:1px solid #222;border-top:0;grid-column:auto;font-size:9px}
+.meta{grid-template-columns:26% 37% 15% 22%}
+.meta>div{border-bottom:0!important;border-right:1px solid #222!important}
+.meta>div:last-child{border-right:0!important}
+.sheet{min-width:0;font-size:9px}.sheet th{font-size:9px;height:31px}.sheet tr td{height:28px;padding:2px}
+.sheet input{border:0;background:transparent;font-size:9px;height:24px;padding:0 2px}
+.sheet .hours{font-size:10px}.sheet tfoot td.total{font-size:13px}
+.meta input:not([type=checkbox]):not([type=radio]){border:0;font-size:10px}
+.signatures{margin-top:15px}
+}
+
+.sheet select{width:100%;min-width:0;height:29px;border:1px solid #e2e2e2;border-radius:0;background:#fff;padding:3px 1px;color:#111;font:inherit;font-size:11px}
+.sheet .dropdown-cell{width:100%;text-align:left}
+.sheet .other-entry{margin-top:3px;width:100%}
+.sheet .other-entry[hidden]{display:none}
+@media print{.sheet select{border:0;appearance:none;-webkit-appearance:none;color:#000;padding:0;font-size:10px}.sheet .other-entry:not([hidden]){font-size:10px;border:0;padding:0}}
+.print-date{display:none}input[type=date]{width:100%;min-width:0;font-size:12px;padding:5px 1px}@media print{input[type=date]{display:none!important}.print-date{display:inline!important;font-size:10px}.actionbuttons{display:none!important}}
+
+/* Phone-friendly editing: preserve the full paper grid on desktop and when printing. */
+@media screen and (max-width: 700px){
+  body{padding:6px;background:#eee}
+  .paper{width:100%;padding:8px;margin:0 auto;border-radius:0}
+  .header{grid-template-columns:74px minmax(0,1fr);gap:6px;min-height:0;padding:8px}
+  .seal{width:65px;height:65px;font-size:8px;transform:none}
+  .seal span{font-size:13px}
+  .heading h1{font-size:13px;line-height:1.2}
+  .heading h2{font-size:12px;line-height:1.25}
+  .instruction{grid-column:1/-1;line-height:1.35;padding:8px}
+  .meta{grid-template-columns:1fr}
+  .meta>div{padding:10px!important;border-right:0!important;border-bottom:1px solid #555!important}
+  .tablewrap{overflow:visible;background:transparent}
+  .sheet{display:block;width:100%;min-width:0;table-layout:auto;border:0}
+  .sheet colgroup,.sheet thead{display:none}
+  .sheet tbody{display:flex;flex-direction:column;gap:12px;padding-top:12px}
+  .sheet tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #555;background:white!important;padding:8px;gap:8px;position:relative}
+  .sheet tbody tr td,.sheet tbody tr:nth-child(even) td{display:block;width:100%;height:auto;min-width:0;border:0;background:transparent!important;padding:0;text-align:left}
+  .sheet tbody tr td::before{display:block;font-size:11px;font-weight:700;color:#222;margin-bottom:5px}
+  .sheet tbody tr td:nth-child(1)::before{content:'Date'}
+  .sheet tbody tr td:nth-child(2)::before{content:'Start Time'}
+  .sheet tbody tr td:nth-child(3)::before{content:'End Time'}
+  .sheet tbody tr td:nth-child(4)::before{content:'Decimal Hours'}
+  .sheet tbody tr td:nth-child(5)::before{content:'Additional Information'}
+  .sheet tbody tr td:nth-child(6)::before{content:'Reason / Location'}
+  .sheet tbody tr td:nth-child(7)::before{content:'Expense Location'}
+  .sheet tbody tr td:nth-child(8)::before{content:'Work Performed'}
+  .sheet tbody tr td:nth-child(n+5):nth-child(-n+8){grid-column:1/-1}
+  .sheet tbody tr td.actioncol{grid-column:1/-1;text-align:right}
+  .sheet tbody tr td.actioncol::before{content:none}
+  .sheet input,.sheet select,.sheet input[type=date],.sheet input[type=time]{width:100%;min-width:0;height:42px;max-width:100%;font-size:16px;padding:7px;border:1px solid #aaa;background:#fff}
+  .sheet select{font-size:16px}
+  .sheet .hours{display:flex;align-items:center;height:42px;font-size:20px;padding-left:8px;border:1px solid #aaa;background:#f4f4f4}
+  .sheet .remove{border:1px solid #888;min-height:34px;width:60px;background:#fff}
+  .sheet tfoot{display:block;margin-top:12px;border:2px solid #333;background:white}
+  .sheet tfoot tr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px;gap:8px}
+  .sheet tfoot td{display:none;border:0!important;background:white!important;padding:0!important;height:auto!important}
+  .sheet tfoot td:first-child{display:block;text-align:left;font-size:13px;flex:1 1 175px}
+  .sheet tfoot td.total{display:block;font-size:24px;flex:0 0 auto}
+  .bulk-tools{padding:10px;gap:10px}.bulk-item{flex:1 1 100%;align-items:stretch}.bulk-item label{width:100%}.bulk-item select,.bulk-item input,.bulk-item button{flex:1 1 100%;width:100%;min-height:42px;font-size:16px}
+  .helper{padding:10px 0;gap:14px}.helper .conversion{width:100%;max-width:none}.conversion select{max-width:100%;width:auto}
+  .actionbuttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}.actionbuttons button{min-width:0;width:100%;padding:10px 5px;min-height:44px}
+  .signatures{grid-template-columns:1fr;gap:24px;margin-top:25px}
+}
+@media screen and (max-width:380px){.header{grid-template-columns:1fr}.seal{display:none}.heading{grid-column:1}.instruction{grid-column:1}.actionbuttons{grid-template-columns:1fr}}
+</style></head><body>
+<main class="paper"><header class="header"><div class="seal">ORANGE COUNTY<br><span>OCDE</span>EDUCATION</div><div class="heading"><h1>Orange County Department of Education</h1><p>Payroll Department</p><h2>Additional Comp Classified (PERS) Timesheet</h2><span style="font-size:10px;color:#647588">Independent calculation aid — verify with payroll</span></div><div class="instruction"><b>Instructions:</b> Enter start and end times for every shift. Decimal hours calculate automatically. Check the appropriate classification and confirm department payroll requirements.<br><b>Due Date:</b> Confirm current payroll deadline.</div></header>
+<section class="meta"><div class="checks"><span class="label">Please check ONLY ONE:</span><label><input type="radio" name="type" value="Extra Hours"> Extra Hours (over 8)</label><label><input type="radio" name="type" value="Overtime"> Overtime (over 40)</label><label><input type="radio" name="type" value="Summer Position"> Summer Position</label><label><input type="radio" name="type" value="Bilingual Stipend"> Bilingual Stipend</label></div><div><label class="label" for="employee">Employee Name (Last, First)</label><input id="employee" placeholder="Last, First"></div><div><label class="label" for="idnum">Employee ID#</label><input id="idnum" placeholder="ID number"></div><div><label class="label" for="position">Current Position</label><input id="position" placeholder="Position title"></div></section>
+<div class="tablewrap"><table class="sheet"><colgroup><col style="width:7%"><col style="width:10%"><col style="width:10%"><col style="width:8%"><col style="width:18%"><col style="width:17%"><col style="width:13%"><col style="width:14%"><col class="actioncol" style="width:3%"></colgroup><thead><tr><th>Date<br><span class="small">(calendar)</span></th><th>Start Time</th><th>End Time</th><th>Total<br>Hours</th><th>Additional Information<br><span class="small">(LEAVE BLANK)</span></th><th>Reason / Location</th><th>Expense Location</th><th>Work Performed</th><th class="actioncol screenonly">×</th></tr></thead><tbody id="rows"></tbody><tfoot><tr><td colspan="3">Timesheet Total (Decimal Format)</td><td class="total" id="grand">0.00</td><td colspan="5"></td></tr></tfoot></table></div>
+<div class="bulk-tools screenonly" aria-label="Apply common values to all shifts">
+  <div class="bulk-item"><label for="allExpense"><strong>Expense Location for all rows</strong></label><select id="allExpense"><option value="Connections @ Mann Elementary">Connections @ Mann Elementary</option><option value="__other__">Other (enter manually)</option></select><input id="allExpenseOther" placeholder="Enter expense location" hidden><button type="button" id="applyExpense">Apply to All Rows</button></div>
+  <div class="bulk-item"><label for="allWork"><strong>Work Performed for all rows</strong></label><select id="allWork"><option value="Bus Aide">Bus Aide</option><option value="__other__">Other (enter manually)</option></select><input id="allWorkOther" placeholder="Enter work performed" hidden><button type="button" id="applyWork">Apply to All Rows</button></div>
+</div>
+<div class="helper screenonly"><div class="conversion"><strong>Minute-to-percentage conversion chart</strong><div style="margin-top:6px">Choose minutes: <select id="minuteChoice" aria-label="Minutes"></select> <output id="minuteValue">0.00</output></div></div><div class="actionbuttons"><button id="sample">Load Example</button><button id="clear" class="danger">Clear All</button><button id="add" class="primary">Add Shift Row</button><button id="print" class="primary" type="button">Download PDF</button><button id="browserPrint" type="button">Print Paper</button><button id="csv">Export CSV</button></div></div>
+<div class="notice screenonly"><strong>How calculations work:</strong> Each shift is calculated as total minutes ÷ 60 and rounded to 2 decimals (e.g., 50 minutes = 0.83; 55 minutes = 0.92). The timesheet total adds the <b>displayed, individually rounded shift values</b>. Enter times in the correct AM/PM using the time picker. End time must be later than start time on the same day. Entries are saved only in this browser on this device. This is an unofficial calculation aid; the resulting printout is not an OCDE-issued payroll form.</div><div id="status" class="status screenonly" role="status" aria-live="polite"></div>
+<section class="signatures"><div>Employee Signature / Date</div><div>Approver Printed Name / Signature</div><div>Date</div></section><div class="footer">PAYROLL USE ONLY • Independent timesheet calculation helper • Verify all entries before submission</div></main>
+<script>
+(()=>{'use strict';const KEY='timesheet_decimal_paper_v1';const $=s=>document.querySelector(s);const body=$('#rows');const EXAMPLE=[['9/14','06:40','08:00'],['9/14','14:00','14:40'],['9/18','06:40','08:00'],['9/18','14:00','14:40'],['9/24','07:00','08:00'],['9/24','13:45','14:40'],['9/25','07:10','08:00'],['9/25','13:46','14:40'],['9/28','07:10','08:00'],['9/28','13:45','14:40'],['10/5','06:40','08:00'],['10/5','14:00','14:40']];
+// Integer arithmetic implements rounding to nearest hundredth of an hour, with half-up ties.
+const hundredths=minutes=>Math.floor((minutes*100+30)/60);
+const mins=t=>{if(!/^\d{2}:\d{2}$/.test(t))return null;const [h,m]=t.split(':').map(Number);return h<24&&m<60?h*60+m:null};
+const EXPENSE_DEFAULT='Connections @ Mann Elementary', WORK_DEFAULT='Bus Aide';
+const isoDate=d=>{if(/^\d{4}-\d{2}-\d{2}$/.test(d||''))return d;const m=String(d||'').match(/^(\d{1,2})\/(\d{1,2})$/);return m?`2026-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`:''};
+const displayDate=d=>{const m=String(d||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?`${m[2]}/${m[3]}/${m[1]}`:String(d||'')};
+const emptyRow=()=>({date:'',start:'',end:'',info:'',reason:'',expense:EXPENSE_DEFAULT,work:WORK_DEFAULT});
+const initial=()=>({employee:'',idnum:'',position:'',type:'',rows:Array.from({length:8},emptyRow)});
+let data;try{const saved=JSON.parse(localStorage.getItem(KEY));data=saved&&Array.isArray(saved.rows)?saved:initial()}catch{data=initial()};
+data.rows=data.rows.map(r=>({...r,date:isoDate(r.date),expense:r.expense || EXPENSE_DEFAULT,work:r.work || WORK_DEFAULT}));
+const esc=v=>String(v??'').replace(/[&"<>']/g,c=>({'&':'&amp;','"':'&quot;','<':'&lt;','>':'&gt;',"'":'&#39;'}[c]));
+function shift(r){if(!r.start&&!r.end)return {text:'',value:0,valid:true};const a=mins(r.start),b=mins(r.end);if(a===null||b===null)return {text:'—',value:0,valid:false};const d=b-a;if(d<=0||d>16*60)return {text:'Check time',value:0,valid:false};const v=hundredths(d);return {text:(v/100).toFixed(2),value:v,valid:true}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(data));$('#status').textContent='Saved on this device'}catch{$('#status').textContent='Browser storage unavailable; please export or print before closing.'}}
+function redrawTotals(){let sum=0;data.rows.forEach((r,i)=>{const td=body.children[i];if(!td)return;const s=shift(r);td.querySelector('.hours').textContent=s.text;td.classList.toggle('invalid',!s.valid);if(s.valid)sum+=s.value});$('#grand').textContent=(sum/100).toFixed(2);return sum}
+function optionField(r,i,field,preferred){
+ const value=r[field]??preferred;
+ const other=value!==preferred;
+ return `<div class="dropdown-cell"><select aria-label="${field==='expense'?'Expense location':'Work performed'} row ${i+1}" data-f="${field}" data-selector="1"><option value="${esc(preferred)}" ${!other?'selected':''}>${esc(preferred)}</option><option value="__other__" ${other?'selected':''}>Other (enter manually)</option></select><input class="other-entry" aria-label="Custom ${field==='expense'?'expense location':'work performed'} row ${i+1}" data-custom="${field}" value="${other?esc(value):''}" placeholder="Type other value" ${other?'':'hidden'}></div>`;
+}
+function render(){body.innerHTML=data.rows.map((r,i)=>`<tr data-index="${i}"><td><input aria-label="Date row ${i+1}" type="date" data-f="date" value="${esc(isoDate(r.date))}"><span class="print-date">${esc(displayDate(isoDate(r.date)))}</span></td><td><input aria-label="Start time row ${i+1}" type="time" data-f="start" value="${esc(r.start)}"></td><td><input aria-label="End time row ${i+1}" type="time" data-f="end" value="${esc(r.end)}"></td><td class="hours"></td><td><input aria-label="Additional information row ${i+1}" data-f="info" value="${esc(r.info)}" placeholder=""></td><td><input aria-label="Reason or location row ${i+1}" data-f="reason" value="${esc(r.reason)}"></td><td>${optionField(r,i,'expense',EXPENSE_DEFAULT)}</td><td>${optionField(r,i,'work',WORK_DEFAULT)}</td><td class="actioncol screenonly"><button class="remove" aria-label="Remove shift ${i+1}" data-remove="${i}" title="Remove this row">×</button></td></tr>`).join('');redrawTotals()}
+['employee','idnum','position'].forEach(k=>{$('#'+k).value=data[k]||'';$('#'+k).addEventListener('input',e=>{data[k]=e.target.value;persist()})});document.querySelectorAll('input[name="type"]').forEach(el=>{el.checked=el.value===data.type;el.addEventListener('change',()=>{data.type=el.value;persist()})});
+body.addEventListener('input',e=>{const custom=e.target.dataset.custom;if(custom){const idx=Number(e.target.closest('tr').dataset.index);data.rows[idx][custom]=e.target.value;persist();return}const field=e.target.dataset.f;if(!field||e.target.dataset.selector)return;const idx=Number(e.target.closest('tr').dataset.index);data.rows[idx][field]=e.target.value;if(field==='date'){const dateLabel=e.target.parentElement.querySelector('.print-date');if(dateLabel)dateLabel.textContent=displayDate(e.target.value)}redrawTotals();persist()});body.addEventListener('change',e=>{if(!e.target.dataset.selector)return;const field=e.target.dataset.f,idx=Number(e.target.closest('tr').dataset.index);const defaultValue=field==='expense'?EXPENSE_DEFAULT:WORK_DEFAULT;const custom=e.target.parentElement.querySelector('.other-entry');const isOther=e.target.value==='__other__';custom.hidden=!isOther;data.rows[idx][field]=isOther?custom.value:defaultValue;persist();if(isOther)custom.focus()});body.addEventListener('click',e=>{const btn=e.target.closest('[data-remove]');if(!btn)return;data.rows.splice(Number(btn.dataset.remove),1);if(!data.rows.length)data.rows.push(emptyRow());render();persist()});
+function wireApplyAll(selectId,inputId,buttonId,field){const sel=$('#'+selectId),custom=$('#'+inputId);sel.addEventListener('change',()=>{custom.hidden=sel.value!=='__other__';if(!custom.hidden)custom.focus()});$('#'+buttonId).addEventListener('click',()=>{const value=sel.value==='__other__'?custom.value.trim():sel.value;if(!value){$('#status').textContent='Enter a custom value before applying it.';custom.focus();return}data.rows.forEach(row=>row[field]=value);render();persist();$('#status').textContent=(field==='expense'?'Expense Location':'Work Performed')+' applied to all '+data.rows.length+' rows.'})}
+wireApplyAll('allExpense','allExpenseOther','applyExpense','expense');wireApplyAll('allWork','allWorkOther','applyWork','work');
+$('#add').onclick=()=>{data.rows.push(emptyRow());render();persist();$('#status').textContent='New shift row added';body.lastElementChild.querySelector('input').focus()};$('#clear').onclick=()=>{data=initial();['employee','idnum','position'].forEach(k=>{$('#'+k).value=''});document.querySelectorAll('input[name="type"]').forEach(el=>el.checked=false);render();persist();$('#status').textContent='Sheet cleared'};$('#sample').onclick=()=>{data.rows=EXAMPLE.map(([date,start,end])=>({...emptyRow(),date:isoDate(date),start,end}));render();persist();$('#status').textContent='Example loaded — 12 shifts totaling '+$('#grand').textContent+' hours'};
+function safePdfText(x){return String(x??'').normalize('NFKD').replace(/[^\x20-\x7e]/g,'').replace(/[\\()]/g,'\\$&')}
+function downloadPdf(){
+ const bad=data.rows.some(r=>!shift(r).valid);
+ if(bad){$('#status').textContent='Correct the highlighted shift times before downloading.';return}
+ const used=data.rows.filter(r=>r.date||r.start||r.end||r.info||r.reason||r.expense!==EXPENSE_DEFAULT||r.work!==WORK_DEFAULT);
+ const pageRows=12, chunks=[];for(let i=0;i<Math.max(1,used.length);i+=pageRows)chunks.push(used.slice(i,i+pageRows));
+ const pages=[], W=842,H=595;
+ function pdfPage(rows,pageNo){let q='';const line=(x1,y1,x2,y2)=>{q+=`${x1} ${y1} m ${x2} ${y2} l S\n`};const txt=(x,y,t,size=9)=>{q+=`BT /F1 ${size} Tf ${x} ${y} Td (${safePdfText(t)}) Tj ET\n`};const box=(x,y,w,h)=>{q+=`${x} ${y} ${w} ${h} re S\n`};
+ txt(235,558,'Orange County Department of Education',15);txt(345,540,'Payroll Department',10);txt(230,523,'Additional Comp Classified (PERS) Timesheet',12);
+ txt(32,498,'Employee: '+(data.employee||''),10);txt(310,498,'Employee ID: '+(data.idnum||''),10);txt(540,498,'Position: '+(data.position||''),10);txt(32,483,'Classification: '+(data.type||''),9);
+ let cols=[32,91,155,219,279,388,507,649,810];const top=464,rowH=27;const labels=['Date','Start','End','Hours','Additional Info','Reason / Location','Expense Location','Work Performed'];
+ for(let c=0;c<8;c++)txt(cols[c]+4,top-17,labels[c],c===4||c===5||c===6||c===7?8:9);
+ line(32,top-27,810,top-27);for(let i=0;i<=rows.length;i++){const y=top-27-i*rowH;line(32,y,810,y)}for(let c=0;c<cols.length;c++)line(cols[c],top,cols[c],top-27-(rows.length)*rowH);
+ function truncate(s,n){s=String(s||'');return s.length>n?s.slice(0,n-2)+'..':s}
+ rows.forEach((r,i)=>{let y=top-45-i*rowH;let vals=[displayDate(r.date),r.start,r.end,shift(r).text,r.info,r.reason,r.expense,r.work];let limits=[11,9,9,8,17,18,22,23];vals.forEach((v,c)=>txt(cols[c]+4,y,truncate(v,limits[c]),c>3?8:9))});
+ const bottom=top-27-rows.length*rowH;txt(32,bottom-25,'Timesheet Total (decimal): '+($('#grand').textContent),12);txt(32,bottom-48,'Employee Signature: _______________________________    Approver: ______________________________',9);
+ txt(32,25,'Independent calculation aid; not an OCDE-issued payroll form. Confirm payroll requirements.',8);txt(740,25,`Page ${pageNo} / ${chunks.length}`,8);return q}
+ chunks.forEach((part,i)=>pages.push(pdfPage(part,i+1)));
+ const objects=[];function add(t){objects.push(t);return objects.length}const catalog=add('');const root=add('');const font=add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');const refs=[];
+ pages.forEach(stream=>{const c=add(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);const p=add(`<< /Type /Page /Parent ${root} 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 ${font} 0 R >> >> /Contents ${c} 0 R >>`);refs.push(p)});
+ objects[root-1]=`<< /Type /Pages /Kids [${refs.map(n=>`${n} 0 R`).join(' ')}] /Count ${refs.length} >>`;
+ objects[catalog-1]=`<< /Type /Catalog /Pages ${root} 0 R >>`;
+ let pdf='%PDF-1.4\n';const offsets=[0];objects.forEach((v,i)=>{offsets.push(pdf.length);pdf+=`${i+1} 0 obj\n${v}\nendobj\n`});const xref=pdf.length;pdf+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;for(let i=1;i<offsets.length;i++)pdf+=`${String(offsets[i]).padStart(10,'0')} 00000 n \n`;pdf+=`trailer\n<< /Size ${objects.length+1} /Root ${catalog} 0 R >>\nstartxref\n${xref}\n%%EOF`;
+ const blob=new Blob([pdf],{type:'application/pdf'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='timesheet-calculated.pdf';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),15000);$('#status').textContent='PDF download started. Check Downloads.'
+}
+$('#print').onclick=downloadPdf;
+$('#browserPrint').onclick=()=>{if(data.rows.some(r=>!shift(r).valid)){$('#status').textContent='Correct highlighted times before printing.';return}window.print()};
+$('#csv').onclick=()=>{if(data.rows.some(r=>!shift(r).valid)){alert('Please correct highlighted invalid shift times before exporting.');return}const quote=x=>'"'+String(x??'').replace(/"/g,'""')+'"';const hdr=['Date','Start Time','End Time','Decimal Hours','Additional Information','Reason/Location','Expense Location','Work Performed'];const lines=[hdr,...data.rows.filter(r=>r.date||r.start||r.end||r.info||r.reason||(r.expense&&r.expense!==EXPENSE_DEFAULT)||(r.work&&r.work!==WORK_DEFAULT)).map(r=>[displayDate(r.date),r.start,r.end,shift(r).text,r.info,r.reason,r.expense,r.work]),['TOTAL','','',($('#grand').textContent),'','','','']];const out='\ufeff'+lines.map(a=>a.map(quote).join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([out],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='timesheet-decimal-hours.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)};
+for(let i=0;i<=60;i++){const opt=document.createElement('option');opt.value=i;opt.textContent=i+' minute'+(i===1?'':'s');$('#minuteChoice').append(opt)}$('#minuteChoice').value=50;const updateChart=()=>{$('#minuteValue').textContent='= '+(hundredths(Number($('#minuteChoice').value))/100).toFixed(2)};$('#minuteChoice').onchange=updateChart;updateChart();render();
+})();
+</script></body></html>
