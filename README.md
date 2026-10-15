@@ -11,3 +11,5 @@ Static HTML app; Vercel Framework Preset: Other, Root Directory: ./, no build co
 **Logo:** Generated ShiftLedger brand icon; app header branding is excluded from the paper print layout. Not an official OCDE product.
 
 Deploy by replacing existing GitHub repository root files with this package's files; Vercel should rebuild automatically.
+
+Version 9: Consolidated all ShiftLedger branding inside the timesheet header beside instructions. Removed the separate top banner and the former PERS / payroll header. PDF generator updated to match.
