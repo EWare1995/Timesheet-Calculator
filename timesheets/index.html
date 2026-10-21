@@ -2485,9 +2485,8 @@
  .day-add{display:block;width:calc(100% - 24px);margin:12px!important;background:#135fbb!important;color:white!important;border-radius:9px!important;border-color:#135fbb!important;font-size:15px!important}
  .day-message{font-size:12px;padding:0 15px 12px;color:#58738e}
  .day-bottom{margin:12px 0;display:flex;gap:8px}.day-bottom button{flex:1;font-size:13px!important;border-radius:9px!important;background:#fff!important;color:#154a86!important;border-color:#c2d4e9!important}
- .day-export-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0 4px}
+ .day-export-actions{display:grid;grid-template-columns:1fr;gap:8px;margin:9px 0 4px}
  .day-export-actions button{min-height:53px;background:#155db2!important;color:white!important;border:1px solid #155db2!important;border-radius:9px!important;font-size:13px!important;padding:10px 7px!important}
- .day-export-actions button:first-child{background:white!important;color:#164c88!important;border-color:#aec6e2!important}
  .day-pdf-note{font-size:11px;line-height:1.45;color:#5b6f87;margin:7px 3px 13px}
  .day-warning{font-size:11px;line-height:1.5;color:#657991;margin:12px 4px}
 }
@@ -2543,10 +2542,9 @@
   <div class="day-swipe-card" id="dayTouch"><div class="day-card-top"><span>Daily shifts</span><small id="dayCount">0 shifts</small></div><div class="day-shift-list" id="dayEntries"></div><div class="day-foot"><div class="day-total">Extra Hours (decimal)<strong id="dayExtra">0.00</strong></div><div class="day-total">Overtime (H:MM)<strong id="dayOvertime">0:00</strong></div></div><button type="button" id="dayAdd" class="day-add">＋ Add shift to this day</button><p id="dayMessage" class="day-message" role="status">Changes save automatically on this device.</p></div>
   <div class="day-bottom"><button id="dayToday" type="button">Go to today</button></div>
   <div class="day-export-actions" aria-label="Timesheet PDF actions">
-   <button id="dayPdfOptions" type="button">Preview options &amp; download PDFs</button>
    <button id="dayPrintPdf" type="button">Print / save PDF</button>
   </div>
-  <p class="day-pdf-note">Choose the Extra Hours or Overtime PDF for payroll review, or download the combined printable draft and open it to preview or print. The existing landscape PDF format is unchanged.</p>
+  <p class="day-pdf-note">Download the combined printable draft. Open the PDF in Safari Downloads or Files to preview, share, or print. The existing landscape PDF format is unchanged.</p>
   <p class="day-warning">Test mobile interface • Uses the same local timesheet records and PDF calculations. This is not an OCDE-issued payroll form. For testing, use fictional employee and student information.</p>
  </div>
 </section>
@@ -2988,8 +2986,30 @@
         $d('dayMode').onclick=toggle;
         // Reuse original validated review and original PDF download callbacks.
         // This leaves the landscape PDF generator, watermark, budget fields and signatures untouched.
-        $d('dayPdfOptions').onclick=()=>{ $d('reviewForms').click(); };
-        $d('dayPrintPdf').onclick=()=>{ $d('browserPrint').click(); };
+        // The desktop timesheet panel is hidden on mobile. A <dialog> inside
+        // a display:none ancestor cannot be shown even when showModal() runs.
+        // Portal the same existing review dialog to the document body.
+        const pdfReviewDialog = $d('reviewDialog');
+        if (pdfReviewDialog && pdfReviewDialog.parentElement !== document.body) {
+          document.body.appendChild(pdfReviewDialog);
+        }
+        // Invoke the original validation/review and PDF exporter directly from
+        // the user's tap, rather than clicking hidden desktop controls.
+        $d('dayPrintPdf').onclick = () => {
+          try {
+            const issues = checkForms();
+            if (issues.length) {
+              review();
+              $d('dayMessage').textContent='Please resolve the highlighted review issues before downloading a PDF.';
+              return;
+            }
+            downloadPdf();
+            $d('dayMessage').textContent='PDF requested. Open it from Safari Downloads or Files to print or share.';
+          } catch (err) {
+            console.error('ShiftLedger printable PDF failed:', err);
+            $d('dayMessage').textContent='PDF could not be downloaded. Try Safari or Table view.';
+          }
+        };
         const touch=$d('dayTouch');
         touch.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY},{passive:true});
         touch.addEventListener('touchend',e=>{if(startX===null||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;startX=startY=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)datePlus(dx<0?1:-1)},{passive:true});
