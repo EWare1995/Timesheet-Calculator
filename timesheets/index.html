@@ -2451,7 +2451,45 @@
     @media screen and (max-width:600px){.header.shiftledger-form-header{grid-template-columns:1fr}.budget-panel{grid-column:1;grid-row:auto;border-left:0;border-top:1px solid #222}.principal-signatures{grid-template-columns:1fr;gap:24px}}
     @media print{.header.shiftledger-form-header{grid-template-columns:minmax(0,1fr) 290px 205px}.budget-panel{grid-column:auto;grid-row:auto;border-top:0;border-left:1px solid #222;padding:5px 8px}.budget-line input{border:0;background:transparent;padding:0}.principal-signatures{margin-top:15px}.shiftledger-form-header .instruction{grid-column:auto;border-top:0;border-left:1px solid #222}}
   </style>
-<style id="sl-dashboard-navigation">.sl-back{background:#092f60;color:white;padding:11px max(16px,calc((100vw - 1360px)/2));display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;font:600 13px Arial,sans-serif;position:relative;z-index:20}.sl-back a{color:white;text-decoration:none;padding:7px 9px;border:1px solid #ffffff55;border-radius:7px}.sl-back a:hover,.sl-back a:focus-visible{background:#ffffff25}.sl-back span{font-weight:400;color:#d8e7fa}@media print{.sl-back{display:none!important}}</style></head>
+<style id="sl-dashboard-navigation">.sl-back{background:#092f60;color:white;padding:11px max(16px,calc((100vw - 1360px)/2));display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;font:600 13px Arial,sans-serif;position:relative;z-index:20}.sl-back a{color:white;text-decoration:none;padding:7px 9px;border:1px solid #ffffff55;border-radius:7px}.sl-back a:hover,.sl-back a:focus-visible{background:#ffffff25}.sl-back span{font-weight:400;color:#d8e7fa}@media print{.sl-back{display:none!important}}</style>
+<style id="mobile-day-style">
+#mobileDayApp{display:none}
+@media screen and (max-width:700px){
+ body{background:#eaf0f8 !important}
+ #mobileDayApp{display:block;max-width:560px;margin:10px auto 20px;padding:0 10px;font-family:Arial,sans-serif;color:#17365a}
+ body:not(.dayshow-table) main.paper{display:none}
+ body.dayshow-table #mobileDayApp .day-workspace{display:none}
+ body.dayshow-table main.paper{display:block}
+ .day-brand{display:flex;align-items:center;gap:10px;background:white;border:1px solid #d5e0ef;border-radius:15px;padding:12px;margin-bottom:12px}
+ .day-brand img{width:43px;height:43px;object-fit:contain}
+ .day-brand strong{font-size:21px;color:#0d3268}.day-brand small{display:block;color:#60738a;font-size:11px;margin-top:2px}
+ .day-toggle{background:white!important;color:#154d8b!important;border:1px solid #b4cbe6!important;font-size:12px!important;margin-left:auto;padding:8px!important;border-radius:8px!important}
+ .day-nav{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+ .day-nav button{background:#fff!important;border:1px solid #cbd9e8!important;color:#14569b!important;border-radius:10px!important;font-size:24px!important;padding:7px 14px!important;min-height:46px}
+ .day-label{text-align:center;flex:1}.day-label strong{display:block;font-size:20px;color:#133c70}.day-label input{border:none;background:transparent;font:inherit;color:#546982;font-size:14px;text-align:center;width:145px}
+ .day-swipe-hint{text-align:center;font-size:12px;color:#69819a;margin:5px 0 12px}
+ .day-swipe-card{background:#fff;border:1px solid #cad9ea;border-radius:17px;overflow:hidden;box-shadow:0 4px 17px #193e6d13;touch-action:pan-y}
+ .day-card-top{background:linear-gradient(130deg,#0c5cb5,#247fe4);color:#fff;padding:16px 16px 13px;font-weight:bold;display:flex;justify-content:space-between}
+ .day-card-top small{font-weight:normal;opacity:.9}
+ .day-shift-list{padding:12px}
+ .day-shift{border:1px solid #d4e0ed;border-radius:12px;padding:12px;margin-bottom:12px;background:#fbfdff}
+ .day-shift-head{display:flex;justify-content:space-between;align-items:center;gap:5px;margin-bottom:11px}
+ .day-shift-head b{color:#164575;font-size:14px}.day-shift-head button{padding:5px 8px!important;border:1px solid #ecd1d1!important;background:#fff7f7!important;color:#a43030!important;font-size:12px!important;border-radius:6px!important}
+ .day-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .day-fields label{font-size:11px;color:#516781;font-weight:700;display:block;min-width:0}
+ .day-fields input,.day-fields select{display:block;width:100%;min-width:0;margin-top:5px;min-height:42px;border:1px solid #c2d2e5;border-radius:8px;background:#fff;color:#203a57;padding:7px;font-size:14px}
+ .day-fields .wide{grid-column:1/-1}.day-hours{border-radius:8px;background:#e9f3ff;padding:9px;font-size:13px;color:#104987;grid-column:1/-1}
+ .day-empty{padding:24px 12px;text-align:center;color:#657991;font-size:14px}
+ .day-foot{background:#f1f6fd;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .day-total{background:white;padding:10px;border-radius:8px;font-size:12px;color:#5e6f83}.day-total strong{display:block;color:#123f7d;font-size:21px;margin-top:5px}
+ .day-add{display:block;width:calc(100% - 24px);margin:12px!important;background:#135fbb!important;color:white!important;border-radius:9px!important;border-color:#135fbb!important;font-size:15px!important}
+ .day-message{font-size:12px;padding:0 15px 12px;color:#58738e}
+ .day-bottom{margin:12px 0;display:flex;gap:8px}.day-bottom button{flex:1;font-size:13px!important;border-radius:9px!important;background:#fff!important;color:#154a86!important;border-color:#c2d4e9!important}
+ .day-warning{font-size:11px;line-height:1.5;color:#657991;margin:12px 4px}
+}
+@media print {#mobileDayApp{display:none!important}}
+</style>
+</head>
 
 <body><nav class="sl-back" aria-label="ShiftLedger navigation"><a href="../index.html" aria-label="Back to ShiftLedger dashboard">← ShiftLedger Dashboard</a><span>Independent pilot · Draft calculations only</span></nav>
   <div id="pilotNotice" class="pilot-overlay" hidden>
@@ -2492,6 +2530,17 @@
     Pilot Information & Privacy
   </button>
 </div>
+
+<section id="mobileDayApp" class="screenonly" aria-label="Mobile day-by-day timesheets">
+ <div class="day-brand"><img src="../shiftledger-icon.png" alt="ShiftLedger icon"><div><strong>ShiftLedger</strong><small>Your Time. Your Records.</small></div><button type="button" class="day-toggle" id="dayMode">Table view</button></div>
+ <div class="day-workspace">
+  <div class="day-nav"><button type="button" id="dayPrev" aria-label="Previous day">‹</button><div class="day-label"><strong id="dayTitle">Today</strong><input id="dayDate" type="date" aria-label="Choose timesheet date"></div><button type="button" id="dayNext" aria-label="Next day">›</button></div>
+  <p class="day-swipe-hint">← Swipe to see another day →</p>
+  <div class="day-swipe-card" id="dayTouch"><div class="day-card-top"><span>Daily shifts</span><small id="dayCount">0 shifts</small></div><div class="day-shift-list" id="dayEntries"></div><div class="day-foot"><div class="day-total">Extra Hours (decimal)<strong id="dayExtra">0.00</strong></div><div class="day-total">Overtime (H:MM)<strong id="dayOvertime">0:00</strong></div></div><button type="button" id="dayAdd" class="day-add">＋ Add shift to this day</button><p id="dayMessage" class="day-message" role="status">Changes save automatically on this device.</p></div>
+  <div class="day-bottom"><button id="dayToday" type="button">Go to today</button><button id="dayReview" type="button">Review full timesheet →</button></div>
+  <p class="day-warning">Test mobile interface • Uses the same local timesheet records and PDF calculations. This is not an OCDE-issued payroll form. For testing, use fictional employee and student information.</p>
+ </div>
+</section>
   <main class="paper">
     <div class="pilot-print-warning">
   DRAFT - NOT FOR OFFICIAL PAYROLL SUBMISSION
@@ -2878,6 +2927,65 @@
       $('#downloadExtra').onclick = () => exportCategory('Extra Hours'); $('#downloadOvertime').onclick = () => exportCategory('Overtime'); $('#downloadBoth').onclick = () => { if (checkForms().length) { review(); return } exportCategory('Extra Hours'); setTimeout(() => exportCategory('Overtime'), 450) };
 
       for (let i = 0; i <= 60; i++) { const opt = document.createElement('option'); opt.value = i; opt.textContent = i + ' minute' + (i === 1 ? '' : 's'); $('#minuteChoice').append(opt) } $('#minuteChoice').value = 50; const updateChart = () => { $('#minuteValue').textContent = '= ' + (hundredths(Number($('#minuteChoice').value)) / 100).toFixed(2) }; $('#minuteChoice').onchange = updateChart; updateChart(); render();
+      // Mobile day swipe: alternate editor for the SAME existing rows and storage key.
+      (() => {
+        const panel = document.getElementById('mobileDayApp');
+        if (!panel) return;
+        const $d = id => document.getElementById(id);
+        const todayLocal = () => { const x = new Date(); return [x.getFullYear(), String(x.getMonth()+1).padStart(2,'0'),String(x.getDate()).padStart(2,'0')].join('-') };
+        let activeDay = data.rows.find(r => r.date && usedRow(r))?.date || todayLocal();
+        let startX = null, startY = null;
+        const datePlus = n => { const [y,m,d]=activeDay.split('-').map(Number); const x=new Date(y,m-1,d+n); activeDay=[x.getFullYear(),String(x.getMonth()+1).padStart(2,'0'),String(x.getDate()).padStart(2,'0')].join('-'); showDay() };
+        const opt = (value,label,selected) => `<option value="${esc(value)}" ${value===selected?'selected':''}>${esc(label)}</option>`;
+        const field = (idx,key,name,val,wide=false) => `<label class="${wide?'wide':''}">${name}<input data-day-index="${idx}" data-day-field="${key}" value="${esc(val||'')}" placeholder="${esc(name)}"></label>`;
+        function showDay(){
+          const [y,m,d]=activeDay.split('-').map(Number);
+          $d('dayTitle').textContent=new Date(y,m-1,d).toLocaleDateString(undefined,{weekday:'long'});
+          $d('dayDate').value=activeDay;
+          const entries=data.rows.map((r,i)=>({r,i})).filter(({r})=>r.date===activeDay);
+          $d('dayCount').textContent=entries.length+' shift'+(entries.length===1?'':'s');
+          $d('dayEntries').innerHTML=entries.length ? entries.map(({r,i},n)=>{
+             const minutes=durationMinutes(r);const label=r.category||'Unclassified';
+             return `<section class="day-shift" data-shift="${i}"><div class="day-shift-head"><b>Shift ${n+1} · ${esc(label)}</b><button type="button" data-day-remove="${i}" aria-label="Remove shift ${n+1}">Remove</button></div><div class="day-fields">
+               <label>Form<select data-day-index="${i}" data-day-field="category">${opt('','Choose form',r.category)}${opt('Extra Hours','Extra Hours',r.category)}${opt('Overtime','Overtime',r.category)}</select></label>
+               <div class="day-hours">Calculated: <b>${esc(formattedShift(r)||'—')}</b></div>
+               <label>Start time<input type="time" data-day-index="${i}" data-day-field="start" value="${esc(r.start)}"></label>
+               <label>End time<input type="time" data-day-index="${i}" data-day-field="end" value="${esc(r.end)}"></label>
+               ${field(i,'reason','Reason / Location',r.reason,true)}
+               ${field(i,'info','Additional information',r.info,true)}
+               ${field(i,'expense','Expense location',r.expense,true)}
+               ${field(i,'work','Work performed',r.work,true)}
+               </div></section>`;
+          }).join('') : '<p class="day-empty">No shifts entered for this day.<br>Add an AM, PM, or overtime shift below.</p>';
+          let extra=0, overtime=0;
+          entries.forEach(({r})=>{ if(r.category==='Extra Hours' && shift(r).valid)extra+=shift(r).value; if(r.category==='Overtime')overtime+=durationMinutes(r)||0 });
+          $d('dayExtra').textContent=(extra/100).toFixed(2);
+          $d('dayOvertime').textContent=hhmm(overtime);
+        }
+        const refresh=()=>{render();persist();showDay()};
+        $d('dayPrev').onclick=()=>datePlus(-1);$d('dayNext').onclick=()=>datePlus(1);
+        $d('dayDate').onchange=e=>{if(/^\d{4}-\d{2}-\d{2}$/.test(e.target.value)){activeDay=e.target.value;showDay()}};
+        $d('dayToday').onclick=()=>{activeDay=todayLocal();showDay()};
+        $d('dayAdd').onclick=()=>{data.rows.push({...emptyRow(),date:activeDay});refresh();$d('dayMessage').textContent='Added a shift. Fill in the times and select its form.'};
+        $d('dayEntries').addEventListener('input',e=>{
+          const f=e.target.dataset.dayField; if(!f)return; const i=Number(e.target.dataset.dayIndex); if(!data.rows[i])return;
+          data.rows[i][f]=e.target.value;
+          redrawTotals();persist();
+          $d('dayMessage').textContent='Saved automatically on this device.';
+        });
+        $d('dayEntries').addEventListener('change',e=>{ if(e.target.dataset.dayField)showDay() });
+        $d('dayEntries').addEventListener('click',e=>{const b=e.target.closest('[data-day-remove]');if(!b)return;data.rows.splice(Number(b.dataset.dayRemove),1);if(!data.rows.length)data.rows.push(emptyRow());refresh()});
+        const toggle=()=>{document.body.classList.toggle('dayshow-table');$d('dayMode').textContent=document.body.classList.contains('dayshow-table')?'Day view':'Table view'; if(!document.body.classList.contains('dayshow-table'))showDay()};
+        $d('dayMode').onclick=toggle;$d('dayReview').onclick=toggle;
+        const touch=$d('dayTouch');
+        touch.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY},{passive:true});
+        touch.addEventListener('touchend',e=>{if(startX===null||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;startX=startY=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)datePlus(dx<0?1:-1)},{passive:true});
+        // Refresh the day view when the existing table loads or clears a period.
+        const periodButtons=['openPeriod','newPeriod','clear','sample','add','assignExtra','assignOvertime'];
+        periodButtons.forEach(id=>$d(id)?.addEventListener('click',()=>{if(id==='openPeriod'||id==='sample')activeDay=data.rows.find(r=>r.date&&usedRow(r))?.date||activeDay;showDay()}));
+        showDay();
+      })();
+
     })();
   </script>
   <script>
