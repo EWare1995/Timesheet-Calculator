@@ -2492,6 +2492,18 @@
 }
 @media print {#mobileDayApp{display:none!important}}
 </style>
+<style id="mobile-pdf-choice-style">
+#mobilePdfChoices{border:0;border-radius:18px;padding:0;width:min(92vw,430px);max-height:85dvh;box-shadow:0 20px 60px #001d4470;color:#17365a;background:white;overflow:auto}
+#mobilePdfChoices::backdrop{background:rgba(6,24,48,.63)}
+#mobilePdfChoices .mobile-pdf-dialog{padding:22px;font-family:Arial,Helvetica,sans-serif}
+#mobilePdfChoices h2{font-size:21px;margin:0 0 10px;color:#0c3265}
+#mobilePdfChoices p{font-size:13px;line-height:1.5;color:#52687e;margin:0 0 16px}
+#mobilePdfChoices button[data-mobile-pdf]{display:block;width:100%;background:#f5f9ff;color:#154c85;border:1px solid #bed2e9;border-radius:11px;text-align:left;font-size:16px;font-weight:700;padding:14px 16px;margin:0 0 10px;min-height:61px}
+#mobilePdfChoices button[data-mobile-pdf] small{display:block;font-size:12px;color:#597089;font-weight:400;margin-top:4px}
+#mobilePdfChoices #mobilePdfFeedback{color:#9b2d24;font-weight:600;margin:6px 0 10px}
+#mobilePdfChoices .mobile-pdf-cancel{display:block;width:100%;background:white;color:#1c5489;border:1px solid #b9cee4;border-radius:10px;padding:12px}
+@media print{#mobilePdfChoices{display:none!important}}
+</style>
 </head>
 
 <body><nav class="sl-back" aria-label="ShiftLedger navigation"><a href="../index.html" aria-label="Back to ShiftLedger dashboard">← ShiftLedger Dashboard</a><span>Independent pilot · Draft calculations only</span></nav>
@@ -2544,10 +2556,21 @@
   <div class="day-export-actions" aria-label="Timesheet PDF actions">
    <button id="dayPrintPdf" type="button">Print / save PDF</button>
   </div>
-  <p class="day-pdf-note">Download the combined printable draft. Open the PDF in Safari Downloads or Files to preview, share, or print. The existing landscape PDF format is unchanged.</p>
+  <p class="day-pdf-note">Choose Extra Hours, Overtime, or a combined draft. Open the downloaded PDF in Safari Downloads or Files to preview, share, or print. The existing landscape PDF format is unchanged.</p>
   <p class="day-warning">Test mobile interface • Uses the same local timesheet records and PDF calculations. This is not an OCDE-issued payroll form. For testing, use fictional employee and student information.</p>
  </div>
 </section>
+<dialog id="mobilePdfChoices" class="screenonly" aria-labelledby="mobilePdfTitle">
+  <div class="mobile-pdf-dialog">
+    <h2 id="mobilePdfTitle">Choose your timesheet PDF</h2>
+    <p>Download a draft for the selected form. Each PDF keeps the existing landscape layout, budget allocations, principal signature lines and draft watermark.</p>
+    <button type="button" data-mobile-pdf="Extra Hours">Extra Hours PDF <small>Decimal hours</small></button>
+    <button type="button" data-mobile-pdf="Overtime">Overtime PDF <small>Hours and minutes (H:MM)</small></button>
+    <button type="button" data-mobile-pdf="combined">Combined draft PDF <small>Both classifications for review</small></button>
+    <p id="mobilePdfFeedback" role="status" aria-live="polite"></p>
+    <button type="button" id="mobilePdfClose" class="mobile-pdf-cancel">Cancel</button>
+  </div>
+</dialog>
   <main class="paper">
     <div class="pilot-print-warning">
   DRAFT - NOT FOR OFFICIAL PAYROLL SUBMISSION
@@ -2995,21 +3018,51 @@
         }
         // Invoke the original validation/review and PDF exporter directly from
         // the user's tap, rather than clicking hidden desktop controls.
+        // One mobile action opens a small, visible chooser. Every option calls
+        // the unchanged original PDF generator directly from the user's tap.
+        const pdfChoiceDialog = $d('mobilePdfChoices');
+        const pdfFeedback = $d('mobilePdfFeedback');
         $d('dayPrintPdf').onclick = () => {
+          pdfFeedback.textContent = '';
           try {
-            const issues = checkForms();
-            if (issues.length) {
-              review();
-              $d('dayMessage').textContent='Please resolve the highlighted review issues before downloading a PDF.';
-              return;
-            }
-            downloadPdf();
-            $d('dayMessage').textContent='PDF requested. Open it from Safari Downloads or Files to print or share.';
+            if (!pdfChoiceDialog.open) pdfChoiceDialog.showModal();
           } catch (err) {
-            console.error('ShiftLedger printable PDF failed:', err);
-            $d('dayMessage').textContent='PDF could not be downloaded. Try Safari or Table view.';
+            console.error('Unable to open PDF choices:', err);
+            $d('dayMessage').textContent = 'Unable to open PDF options. Try Safari or Table view.';
           }
         };
+        $d('mobilePdfClose').onclick = () => pdfChoiceDialog.close();
+        pdfChoiceDialog.addEventListener('click', e => {
+          if (e.target === pdfChoiceDialog) pdfChoiceDialog.close();
+        });
+        pdfChoiceDialog.querySelectorAll('[data-mobile-pdf]').forEach(button => {
+          button.onclick = () => {
+            const category = button.dataset.mobilePdf;
+            try {
+              const issues = checkForms();
+              if (issues.length) {
+                pdfFeedback.textContent = 'Please correct the timesheet entries before downloading.';
+                $d('dayMessage').textContent = 'Please correct the timesheet entries before downloading a PDF.';
+                return;
+              }
+              if (category !== 'combined' && !data.rows.some(r => usedRow(r) && r.category === category)) {
+                pdfFeedback.textContent = 'No ' + category + ' shifts have been entered yet.';
+                return;
+              }
+              if (category === 'combined' && !data.rows.some(r => usedRow(r))) {
+                pdfFeedback.textContent = 'Add a shift before downloading a PDF.';
+                return;
+              }
+              // Keep the original page dimensions, totals and classifications.
+              downloadPdf(category === 'combined' ? null : category);
+              pdfChoiceDialog.close();
+              $d('dayMessage').textContent = 'PDF requested. Open Downloads or Files to preview or print.';
+            } catch (err) {
+              console.error('ShiftLedger PDF export failed:', err);
+              pdfFeedback.textContent = 'The download failed. Please try again in Safari.';
+            }
+          };
+        });
         const touch=$d('dayTouch');
         touch.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY},{passive:true});
         touch.addEventListener('touchend',e=>{if(startX===null||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;startX=startY=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)datePlus(dx<0?1:-1)},{passive:true});
