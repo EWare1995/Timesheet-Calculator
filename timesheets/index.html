@@ -2437,6 +2437,19 @@
     z-index: 9999;
   }
 }
+
+    /* V14: budget allocation beside the brand, plus principal sign-off */
+    .header.shiftledger-form-header{grid-template-columns:minmax(0,1fr) 300px 235px;}
+    .budget-panel{border-left:1px solid #222;padding:9px 10px;background:#f8fafc;min-width:0}
+    .budget-panel h3{margin:0 0 6px;font-size:12px;color:#17375b}
+    .budget-line{display:grid;grid-template-columns:48px minmax(0,1fr) 46px;align-items:center;gap:5px;margin:5px 0;font-size:10px}
+    .budget-line input{min-width:0;width:100%;padding:5px 4px;border:1px solid #a3b3c4;border-radius:3px;font-size:12px;background:white}
+    .budget-line input.budget-percent{width:100%}
+    .principal-signatures{margin-top:20px;display:grid;grid-template-columns:1fr 1fr 0.6fr;gap:18px}
+    .principal-signatures div{border-top:1px solid #333;padding-top:6px;font-size:12px}
+    @media screen and (max-width:950px){.header.shiftledger-form-header{grid-template-columns:minmax(0,1fr) minmax(210px,0.8fr)}.budget-panel{grid-column:2;grid-row:1}.shiftledger-form-header .instruction{grid-column:1/-1;border-left:0;border-top:1px solid #222}}
+    @media screen and (max-width:600px){.header.shiftledger-form-header{grid-template-columns:1fr}.budget-panel{grid-column:1;grid-row:auto;border-left:0;border-top:1px solid #222}.principal-signatures{grid-template-columns:1fr;gap:24px}}
+    @media print{.header.shiftledger-form-header{grid-template-columns:minmax(0,1fr) 290px 205px}.budget-panel{grid-column:auto;grid-row:auto;border-top:0;border-left:1px solid #222;padding:5px 8px}.budget-line input{border:0;background:transparent;padding:0}.principal-signatures{margin-top:15px}.shiftledger-form-header .instruction{grid-column:auto;border-top:0;border-left:1px solid #222}}
   </style>
 <style id="sl-dashboard-navigation">.sl-back{background:#092f60;color:white;padding:11px max(16px,calc((100vw - 1360px)/2));display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;font:600 13px Arial,sans-serif;position:relative;z-index:20}.sl-back a{color:white;text-decoration:none;padding:7px 9px;border:1px solid #ffffff55;border-radius:7px}.sl-back a:hover,.sl-back a:focus-visible{background:#ffffff25}.sl-back span{font-weight:400;color:#d8e7fa}@media print{.sl-back{display:none!important}}</style></head>
 
@@ -2492,6 +2505,15 @@
           <div class="shiftledger-disclaimer">Independent timesheet helper · Not an official OCDE system</div>
         </div>
       </div>
+      <section class="budget-panel" aria-label="Budget allocation">
+        <h3>Budget allocation (optional) · Six fields</h3>
+        <div class="budget-line"><label for="budget1">Budget #1</label><input id="budget1" maxlength="36" aria-label="Budget number 1"><input id="budgetPct1" class="budget-percent" type="text" inputmode="decimal" maxlength="9" placeholder="%" aria-label="Budget 1 percentage"></div>
+        <div class="budget-line"><label for="budget2">Budget #2</label><input id="budget2" maxlength="36" aria-label="Budget number 2"><input id="budgetPct2" class="budget-percent" type="text" inputmode="decimal" maxlength="9" placeholder="%" aria-label="Budget 2 percentage"></div>
+        <div class="budget-line"><label for="budget3">Budget #3</label><input id="budget3" maxlength="36" aria-label="Budget number 3"><input id="budgetPct3" class="budget-percent" type="text" inputmode="decimal" maxlength="9" placeholder="%" aria-label="Budget 3 percentage"></div>
+        <div class="budget-line"><label for="budget4">Budget #4</label><input id="budget4" maxlength="36" aria-label="Budget number 4"><input id="budgetPct4" class="budget-percent" type="text" inputmode="decimal" maxlength="9" placeholder="%" aria-label="Budget 4 percentage"></div>
+        <div class="budget-line"><label for="budget5">Budget #5</label><input id="budget5" maxlength="36" aria-label="Budget number 5"><input id="budgetPct5" class="budget-percent" type="text" inputmode="decimal" maxlength="9" placeholder="%" aria-label="Budget 5 percentage"></div>
+        <div class="budget-line"><label for="budget6">Budget #6</label><input id="budget6" maxlength="36" aria-label="Budget number 6"><input id="budgetPct6" class="budget-percent" type="text" inputmode="decimal" maxlength="9" placeholder="%" aria-label="Budget 6 percentage"></div>
+      </section>
       <div class="instruction"><b>Instructions:</b> Enter start and end times for every shift. Decimal hours calculate
         automatically. Check the appropriate classification and confirm department payroll requirements.<br><b>Due
           Date:</b> Confirm current payroll deadline.</div>
@@ -2646,8 +2668,8 @@
     <div id="status" class="status screenonly" role="status" aria-live="polite"></div>
     <section class="signatures">
       <div>Employee Signature / Date</div>
-      <div>Approver Printed Name / Signature</div>
-      <div>Date</div>
+      <div>Principal Signature</div>
+      <div>Principal Printed Name / Date</div>
     </section>
     <div class="footer">PAYROLL USE ONLY • Independent timesheet calculation helper • Verify all entries before
       submission</div>
@@ -2662,8 +2684,10 @@
       const isoDate = d => { if (/^\d{4}-\d{2}-\d{2}$/.test(d || '')) return d; const m = String(d || '').match(/^(\d{1,2})\/(\d{1,2})$/); return m ? `2026-${m[1].padStart(2, '0')}-${m[2].padStart(2, '0')}` : '' };
       const displayDate = d => { const m = String(d || '').match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? `${m[2]}/${m[3]}/${m[1]}` : String(d || '') };
       const emptyRow = () => ({ date: '', start: '', end: '', info: '', reason: '', expense: EXPENSE_DEFAULT, work: WORK_DEFAULT, category: '' });
-      const initial = () => ({ employee: '', idnum: '', position: '', type: '', rows: Array.from({ length: 8 }, emptyRow) });
+      const initial = () => ({ employee: '', idnum: '', position: '', type: '', budgets: Array(6).fill(''), budgetPercents: Array(6).fill(''), rows: Array.from({ length: 8 }, emptyRow) });
       let data; try { const saved = JSON.parse(localStorage.getItem(KEY)); data = saved && Array.isArray(saved.rows) ? saved : initial() } catch { data = initial() };
+      data.budgets = Array.isArray(data.budgets) ? data.budgets.slice(0,6) : Array(6).fill('');
+      data.budgetPercents = Array.isArray(data.budgetPercents) ? data.budgetPercents.slice(0,6) : Array(6).fill('');
       data.rows = data.rows.map(r => ({ ...r, date: isoDate(r.date), expense: r.expense || EXPENSE_DEFAULT, work: r.work || WORK_DEFAULT, category: r.category || ((r.start || r.end) && (data.type === 'Extra Hours' || data.type === 'Overtime') ? data.type : '') }));
       const esc = v => String(v ?? '').replace(/[&"<>']/g, c => ({ '&': '&amp;', '"': '&quot;', '<': '&lt;', '>': '&gt;', "'": '&#39;' }[c]));
       function shift(r) { if (!r.start && !r.end) return { text: '', value: 0, valid: true }; const a = mins(r.start), b = mins(r.end); if (a === null || b === null) return { text: '—', value: 0, valid: false }; const d = b - a; if (d <= 0 || d > 16 * 60) return { text: 'Check time', value: 0, valid: false }; const v = hundredths(d); return { text: (v / 100).toFixed(2), value: v, valid: true } }
@@ -2680,7 +2704,8 @@
         return `<div class="dropdown-cell"><select aria-label="${field === 'expense' ? 'Expense location' : 'Work performed'} row ${i + 1}" data-f="${field}" data-selector="1"><option value="${esc(preferred)}" ${!other ? 'selected' : ''}>${esc(preferred)}</option><option value="__other__" ${other ? 'selected' : ''}>Other (enter manually)</option></select><input class="other-entry" aria-label="Custom ${field === 'expense' ? 'expense location' : 'work performed'} row ${i + 1}" data-custom="${field}" value="${other ? esc(value) : ''}" placeholder="Type other value" ${other ? '' : 'hidden'}></div>`;
       }
       function render() { body.innerHTML = data.rows.map((r, i) => `<tr data-index="${i}"><td><input aria-label="Date row ${i + 1}" type="date" data-f="date" value="${esc(isoDate(r.date))}"><span class="print-date">${esc(displayDate(isoDate(r.date)))}</span></td><td><input aria-label="Start time row ${i + 1}" type="time" data-f="start" value="${esc(r.start)}"></td><td><input aria-label="End time row ${i + 1}" type="time" data-f="end" value="${esc(r.end)}"></td><td class="hours"></td><td><input aria-label="Additional information row ${i + 1}" data-f="info" value="${esc(r.info)}" placeholder=""></td><td><input aria-label="Reason or location row ${i + 1}" data-f="reason" value="${esc(r.reason)}"></td><td>${optionField(r, i, 'expense', EXPENSE_DEFAULT)}</td><td>${optionField(r, i, 'work', WORK_DEFAULT)}</td><td data-label="Form"><select data-f="category" aria-label="Form for shift ${i + 1}"><option value="" ${!r.category ? 'selected' : ''}>Choose form</option><option value="Extra Hours" ${r.category === 'Extra Hours' ? 'selected' : ''}>Extra Hours</option><option value="Overtime" ${r.category === 'Overtime' ? 'selected' : ''}>Overtime</option></select></td><td class="actioncol screenonly"><button class="remove" aria-label="Remove shift ${i + 1}" data-remove="${i}" title="Remove this row">×</button></td></tr>`).join(''); redrawTotals() }
-      ['employee', 'idnum', 'position'].forEach(k => { $('#' + k).value = data[k] || ''; $('#' + k).addEventListener('input', e => { data[k] = e.target.value; persist() }) }); document.querySelectorAll('input[name="type"]').forEach(el => { el.checked = el.value === data.type; el.addEventListener('change', () => { data.type = el.value; persist() }) });
+      ['employee', 'idnum', 'position'].forEach(k => { $('#' + k).value = data[k] || ''; $('#' + k).addEventListener('input', e => { data[k] = e.target.value; persist() }) });
+      for(let i=0;i<6;i++){ for(const [prefix,key] of [['budget','budgets'],['budgetPct','budgetPercents']]){const el=$('#'+prefix+(i+1));el.value=data[key][i]||'';el.addEventListener('input',()=>{data[key][i]=el.value;persist()})} } document.querySelectorAll('input[name="type"]').forEach(el => { el.checked = el.value === data.type; el.addEventListener('change', () => { data.type = el.value; persist() }) });
       body.addEventListener('input', e => { const custom = e.target.dataset.custom; if (custom) { const idx = Number(e.target.closest('tr').dataset.index); data.rows[idx][custom] = e.target.value; persist(); return } const field = e.target.dataset.f; if (!field || e.target.dataset.selector) return; const idx = Number(e.target.closest('tr').dataset.index); data.rows[idx][field] = e.target.value; if (field === 'category') { redrawTotals(); persist(); return } if (field === 'date') { const dateLabel = e.target.parentElement.querySelector('.print-date'); if (dateLabel) dateLabel.textContent = displayDate(e.target.value) } redrawTotals(); persist() }); body.addEventListener('change', e => { if (e.target.dataset.f === 'category') { const idx = Number(e.target.closest('tr').dataset.index); data.rows[idx].category = e.target.value; redrawTotals(); persist(); return } if (!e.target.dataset.selector) return; const field = e.target.dataset.f, idx = Number(e.target.closest('tr').dataset.index); const defaultValue = field === 'expense' ? EXPENSE_DEFAULT : WORK_DEFAULT; const custom = e.target.parentElement.querySelector('.other-entry'); const isOther = e.target.value === '__other__'; custom.hidden = !isOther; data.rows[idx][field] = isOther ? custom.value : defaultValue; persist(); if (isOther) custom.focus() }); body.addEventListener('click', e => { const btn = e.target.closest('[data-remove]'); if (!btn) return; data.rows.splice(Number(btn.dataset.remove), 1); if (!data.rows.length) data.rows.push(emptyRow()); render(); persist() });
       function wireApplyAll(selectId, inputId, buttonId, field) { const sel = $('#' + selectId), custom = $('#' + inputId); sel.addEventListener('change', () => { custom.hidden = sel.value !== '__other__'; if (!custom.hidden) custom.focus() }); $('#' + buttonId).addEventListener('click', () => { const value = sel.value === '__other__' ? custom.value.trim() : sel.value; if (!value) { $('#status').textContent = 'Enter a custom value before applying it.'; custom.focus(); return } data.rows.forEach(row => row[field] = value); render(); persist(); $('#status').textContent = (field === 'expense' ? 'Expense Location' : 'Work Performed') + ' applied to all ' + data.rows.length + ' rows.' }) }
       wireApplyAll('allExpense', 'allExpenseOther', 'applyExpense', 'expense'); wireApplyAll('allWork', 'allWorkOther', 'applyWork', 'work');
@@ -2715,16 +2740,25 @@
           q += 'q\n0.92 g\nBT\n/F1 25 Tf\n0.707 0.707 -0.707 0.707 200 76 Tm\n(DRAFT - NOT FOR OFFICIAL PAYROLL SUBMISSION) Tj\nET\nQ\n';
           q += '0 G\n0.6 w\n';
           // ShiftLedger header, with its instruction panel as on the paper-style screen form.
-          box(32,501,778,72); line(590,501,590,573);
+          box(32,501,778,72); line(300,501,300,573); line(606,501,606,573);
           // Embed the actual ShiftLedger icon on each PDF page (not dependent on external files).
           q += 'q\n47 0 0 47 46 515 cm\n/Im1 Do\nQ\n';
           txt(103,545,'ShiftLedger',23);
           txt(104,528,'Your Time. Your Records.',10);
-          txt(104,512,'Independent timesheet helper - Not an official OCDE system',8);
-          txt(599,553,'Instructions: Enter start and end times.',8);
-          txt(599,540,'Check hours and form classification.',8);
-          txt(599,527,'Verify all entries with payroll.',8);
-          txt(599,512,'Due Date: Confirm payroll deadline.',8);
+          txt(104,512,'Independent timesheet helper - Unofficial draft',8);
+          txt(308,560,'BUDGET ALLOCATION',8.5);
+          for(let i=0;i<6;i++){
+            const col = Math.floor(i/3), row = i%3;
+            const x = 308 + col*148, y = 543-row*15;
+            txt(x,y,'#'+(i+1),8);
+            txt(x+17,y,fit((data.budgets||[])[i]||'',88,7.3),7.3);
+            txt(x+107,y,fit((data.budgetPercents||[])[i] ? String(data.budgetPercents[i]).replace(/%/g,'')+'%' : '',30,7.3),7.3);
+            line(x+16,y-3,x+102,y-3);
+          }
+          txt(608,554,'Instructions: Enter start/end times.',7.5);
+          txt(608,540,'Check classification and totals.',7.5);
+          txt(608,527,'Verify entries with payroll.',7.5);
+          txt(608,512,'Confirm payroll deadline.',7.5);
           // Four boxed sections reflecting the original paper timesheet.
           box(32,430,778,71);
           const metaCols = [32,256,551,662,810];
@@ -2782,8 +2816,8 @@
           if(combined) txt(420,141,'Overtime: '+hhmm(used.filter(r=>r.category==='Overtime').reduce((n,r)=>n+(durationMinutes(r)||0),0)),9);
           line(35,93,285,93); line(315,93,555,93); line(595,93,810,93);
           txt(35,79,'Employee Signature / Date',8);
-          txt(315,79,'Approver Printed Name / Signature',8);
-          txt(595,79,'Date',8);
+          txt(315,79,'Principal Signature',8);
+          txt(595,79,'Principal Printed Name / Date',8);
           txt(32,36,'DRAFT - Independent calculation aid; not an OCDE-issued payroll form.',8);
           txt(32,23,'Follow approved payroll procedures. Verify all entries before submission.',8);
           txt(740,23,`Page ${pageNo} / ${chunks.length}`,8);
@@ -2813,11 +2847,11 @@
       const say = msg => { $('#status').textContent = msg };
       function archivesSave() { try { localStorage.setItem(ARCHIVE_KEY, JSON.stringify(archives)); return true } catch { say('Could not save period history. Download a backup; browser storage may be full or disabled.'); return false } }
       function archiveList() { const sel = $('#savedPeriods'), prev = sel.value; sel.innerHTML = '<option value="">Select a saved period</option>' + archives.map(a => `<option value="${esc(a.key)}">${esc(a.label)} — ${esc(new Date(a.savedAt).toLocaleString())}</option>`).join(''); if (archives.some(a => a.key === prev)) sel.value = prev }
-      function syncForm() { ['employee', 'idnum', 'position'].forEach(k => { $('#' + k).value = data[k] || '' }); document.querySelectorAll('input[name="type"]').forEach(el => el.checked = el.value === data.type); render(); persist() }
+      function syncForm() { data.budgets=Array.isArray(data.budgets)?data.budgets.slice(0,6):Array(6).fill(''); data.budgetPercents=Array.isArray(data.budgetPercents)?data.budgetPercents.slice(0,6):Array(6).fill(''); for(let i=0;i<6;i++){ $('#budget'+(i+1)).value=data.budgets[i]||'';$('#budgetPct'+(i+1)).value=data.budgetPercents[i]||'' } ['employee', 'idnum', 'position'].forEach(k => { $('#' + k).value = data[k] || '' }); document.querySelectorAll('input[name="type"]').forEach(el => el.checked = el.value === data.type); render(); persist() }
       function hasInvalid() { return data.rows.some(r => !shift(r).valid) }
       $('#savePeriod').onclick = () => { const label = $('#periodLabel').value.trim(); if (!label) { say('Enter a pay period label before saving.'); $('#periodLabel').focus(); return } if (hasInvalid()) { say('Correct invalid shift times before saving a period.'); return } const sheet = deepCopy(data); archives.unshift({ key: 'p' + Date.now() + '-' + Math.random().toString(36).slice(2), label, savedAt: new Date().toISOString(), sheet }); if (archivesSave()) { archiveList(); say('Saved a NEW dated snapshot of ' + label + '. Download a backup for long-term retention.') } };
       $('#openPeriod').onclick = () => { const a = archives.find(x => x.key === $('#savedPeriods').value); if (!a) { say('Select a saved pay period first.'); return } if (!confirm('Open "' + a.label + '"? Your current unsaved changes will be replaced.')) return; data = deepCopy(a.sheet); data.rows = data.rows.map(r => ({ ...emptyRow(), ...r, date: isoDate(r.date) })); $('#periodLabel').value = a.label; syncForm(); say('Opened saved pay period: ' + a.label) };
-      $('#newPeriod').onclick = () => { if (!confirm('Start a blank period? Save your current period first if you need to keep it.')) return; const employee = data.employee, idnum = data.idnum, position = data.position, type = data.type; data = initial(); Object.assign(data, { employee, idnum, position, type }); $('#periodLabel').value = ''; syncForm(); say('New blank period started. Employee details retained.') };
+      $('#newPeriod').onclick = () => { if (!confirm('Start a blank period? Save your current period first if you need to keep it.')) return; const employee = data.employee, idnum = data.idnum, position = data.position, type = data.type, budgets = [...(data.budgets||[])], budgetPercents = [...(data.budgetPercents||[])]; data = initial(); Object.assign(data, { employee, idnum, position, type, budgets, budgetPercents }); $('#periodLabel').value = ''; syncForm(); say('New blank period started. Employee details retained.') };
       $('#deletePeriod').onclick = () => { const key = $('#savedPeriods').value, a = archives.find(x => x.key === key); if (!a) { say('Select a saved period first.'); return } if (!confirm('Permanently delete saved period "' + a.label + '" from this browser?')) return; archives = archives.filter(x => x.key !== key); if (archivesSave()) { archiveList(); say('Saved period deleted. This cannot be undone without a backup.') } };
       function downloadFile(name, contents, type) { const url = URL.createObjectURL(new Blob([contents], { type })); const link = document.createElement('a'); link.href = url; link.download = name; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 15000) }
       $('#exportPeriods').onclick = () => { downloadFile('timesheet-periods-backup-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify({ format: 'ocde-timesheet-periods', version: 1, exportedAt: new Date().toISOString(), periods: archives }, null, 2), 'application/json'); say('Backup download started. Keep it in an approved, secure location.') };
